@@ -1,8 +1,6 @@
-// import { useState, useEffect } from "react"
+
 import { Link } from "react-router-dom"
 import { Results } from "../hooks/useAxios"
-// import { ApiResponse } from "../pages/Home"
-// import axios, {AxiosResponse}  from "axios"
 import { useMovie } from "../filmsContext/MovieProvider"
 import { GrConnect } from "react-icons/gr"
 import { motion } from "framer-motion"
@@ -10,6 +8,7 @@ import { IMG_URL } from "../pages/Home"
 import { URL } from "../pages/Home"
 import { API_KEY } from "../pages/Home"
 import useAxios from "../hooks/useAxios"
+import loader from '../assets/loader.gif'
 
 const Categories = () => {
 
@@ -92,7 +91,7 @@ const Categories = () => {
     //        fetchTrendingTvSeries()
     //   },[])
   
-      if(isLoading) return <p className="text-white">Loading...</p>
+      if(isLoading) return <p className="text-white"><img src={loader} alt="" /></p>
       if(error) return <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>
       return (
       <>
@@ -110,7 +109,7 @@ interface Props {
     heading: string
 }
   export const Section = ({data, heading}: Props) => {
-      const {setMovieInfo, movieInfo} = useMovie()
+      const {setMovieInfo, movieInfo, setIsAuthorized} = useMovie()
       
       const handleMovieInfo = (
           id: number,
@@ -148,14 +147,15 @@ interface Props {
         
         
         setMovieInfo([Data])
-        const scroll = document.getElementById("header")?.scrollIntoView({behavior: "smooth"})
-        console.log(scroll);
+        setIsAuthorized(true)
+        document.getElementById("header")?.scrollIntoView({behavior: "smooth"})
+        // console.log(scroll);
         console.log(movieInfo);
       }
   
       return (
           <div className="w-full p-[10px] h-auto gap-[20px] flex flex-col items-start justify-evenly">
-          <h1 className="text-[1.5rem] sm:text-[1rem] text-white ml-[15px]">{heading}</h1>
+          <h1 className="text-[1.5rem] sm:text-[1.2rem] text-white ml-[15px]">{heading}</h1>
           <div className="w-full min-h-[300px] p-[10px] flex items-center justify-center flex-wrap gap-[15px]">
           
           {data?.map(c => {

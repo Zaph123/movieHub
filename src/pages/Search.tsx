@@ -21,7 +21,7 @@ import useAxios from "../hooks/useAxios";
 const Search = () => {
     const [movieData, setMovieData] = useState<Results[] | null>([])
     const [movieName, setMovieName] = useState("")
-    const {data, error, isLoading} = useAxios<Results>([
+    const {data, error} = useAxios<Results>([
       `${URL}/search/movie?query=${movieName}&api_key=${API_KEY}`
     ])
 
@@ -35,7 +35,7 @@ const Search = () => {
           setMovieData(data && data[0]?.results)
         }
     }
-    const {setMovieInfo, movieInfo} = useMovie()
+    const {setMovieInfo, setIsAuthorized} = useMovie()
     
     const handleMovieInfo = (
         id: number,
@@ -72,18 +72,18 @@ const Search = () => {
       }  
       
       setMovieInfo([Data])
-      console.log(movieInfo);
+      setIsAuthorized(true)
     }
 
   return (
     <div className="w-full relative min-h-screen p-[10px] bg-[#0f0f0f] gap-[20px] flex flex-col items-center justify-start">
       <Nav />
       <div className="w-full h-[150px]"/>
-      <div className="w-full relative max-w-[700px] h-[45px] flex items-center justify-center gap-[10px]">
+      <div className="w-[85%] relative max-w-[700px] h-[45px] flex items-center justify-center gap-[10px]">
        <div className="h-full absolute left-[10px] mx-auto text-white w-auto text-[1.5rem] flex items-center justify-center"><CiSearch /></div>  
         <input type="text" onKeyUp={handleSearch} placeholder="Search movie..." className="h-full bg-transparent pl-[40px] text-white w-full rounded-[10px] outline outline-[1px] outline-[#3b3b3b] border-none p-[10px] focus:outline-[#646464]" onChange={(e) => setMovieName(e.target.value)}/>
       </div>
-        {isLoading && <p className="text-white">Loading...</p>}
+        {/* {isLoading && <p className="text-white">Loading...</p>} */}
       <motion.div layout className="flex p-[10px] h-auto w-full max-w-[1200px] flex-wrap items-center justify-center gap-[20px]">
         {error && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>}
         {movieData?.map(c => {

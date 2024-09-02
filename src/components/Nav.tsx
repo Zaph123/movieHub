@@ -7,7 +7,7 @@ const Nav = () => {
         <a href="/" className="text-[2rem] font-bold text-[#158af1]">movieHub</a></div>
         <div className="flex items-center justify-center gap-2">
          <a href="/" className="text-[1rem] text-white">Home</a>
-         <a href="/search" className="text-[1.5rem] text-white"><CiSearch/></a>
+         <a href="/movieHub/search" className="text-[1.5rem] text-white"><CiSearch/></a>
         </div>
      </nav>
   )

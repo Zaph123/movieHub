@@ -3,7 +3,9 @@ import { Results } from "../hooks/useAxios"
 
 export interface MOVIECONTEXT {
     movieInfo: Results[] | null
-    setMovieInfo: React.Dispatch<React.SetStateAction<Results[] | null>>
+    setMovieInfo: React.Dispatch<React.SetStateAction<Results[] | null>>,
+    isAuthorized: boolean,
+    setIsAuthorized: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export const MovieContext = createContext<MOVIECONTEXT | null>(null)
@@ -14,8 +16,9 @@ interface myCom {
 
 const MovieProvider = ({children}: myCom) => {
     const [movieInfo, setMovieInfo] = useState<Results[] | null>([])
-
-    const context = {movieInfo, setMovieInfo}
+    const [isAuthorized, setIsAuthorized] = useState<boolean>(false)
+    
+    const context = {movieInfo, setMovieInfo, isAuthorized, setIsAuthorized}
 
   return (
     <MovieContext.Provider value={context}>

@@ -20,15 +20,15 @@ const VideoPlayer = ({id}: ID) => {
 
   useEffect(() => {
     if(data){
-        console.log(data);
+        // console.log(data);
         // setMovieInfo(prev => prev?.map(c: => ({...c})))
     }
   })
 
   return (
+    data && data[0]?.results && data[0]?.results[0]?.site === "YouTube" && 
     <section className="w-full max-w-[700px] p-[30px] mx-auto my-[50px]">
     <div className="w-full relative pb-[56.25%] h-0 overflow-hidden p-[20px]">
-    {data && data[0]?.results && data[0]?.results[9]?.site === "YouTube" && (
      <iframe
        src={`https://www.youtube.com/embed/${data[0]?.results[9]?.key}`}
        title={data[0]?.results[9]?.name}
@@ -36,7 +36,6 @@ const VideoPlayer = ({id}: ID) => {
        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
        allowFullScreen
       />
-      )}
    </div>
    </section>
   )

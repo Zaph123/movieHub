@@ -61,7 +61,7 @@ const Home = () => {
       }
     },[openBar])
 
-    const {setMovieInfo} = useMovie()
+    const {setMovieInfo, setIsAuthorized} = useMovie()
     
     const handleMovieInfo = (
         id: number,
@@ -99,6 +99,7 @@ const Home = () => {
       }  
       
       setMovieInfo([Data])
+      setIsAuthorized(true)
     }
 
     // const variants = {
@@ -140,8 +141,8 @@ const Home = () => {
             type: "spring",
             ease: [.22,.68,0,1.71]
            }}
-           className="absolute outline outline-[1px] outline-[#3b3b3b] z-40 top-[45px] p-[10px] rounded-[10px] left-0 w-full overflow-hidden overflow-y-auto h-[300px] bg-[#161616]">
-              <h4 className="text-[.85rem] text-[#797979]"><i>found </i> ({movieData?.length}) results</h4>
+           className="absolute border-[1px] border-[#646464] z-40 top-[45px] p-[10px] rounded-[10px] left-0 w-full overflow-hidden overflow-y-auto h-[300px] bg-[#161616]">
+              <h4 className="text-[.85rem] text-[#797979]"><i>found </i> <b>({movieData?.length})</b> results</h4>
               {movieData?.map(data => {
                 return (
                   <Link key={data.id} to={`/movie/${encodeURIComponent(data.title)}`}
