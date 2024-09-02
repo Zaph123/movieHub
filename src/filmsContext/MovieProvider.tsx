@@ -1,0 +1,34 @@
+import React, { createContext, ReactNode, useContext, useState } from "react"
+import { Results } from "../hooks/useAxios"
+
+export interface MOVIECONTEXT {
+    movieInfo: Results[] | null
+    setMovieInfo: React.Dispatch<React.SetStateAction<Results[] | null>>
+}
+
+export const MovieContext = createContext<MOVIECONTEXT | null>(null)
+
+interface myCom {
+    children: ReactNode
+}
+
+const MovieProvider = ({children}: myCom) => {
+    const [movieInfo, setMovieInfo] = useState<Results[] | null>([])
+
+    const context = {movieInfo, setMovieInfo}
+
+  return (
+    <MovieContext.Provider value={context}>
+      {children}
+    </MovieContext.Provider>
+  )
+}
+
+ export const useMovie = (): MOVIECONTEXT => {
+  const context = useContext(MovieContext)
+  if (!context) {
+    throw new Error('useMovie must be used within a MovieProvider');
+  }
+  return context
+}
+export default MovieProvider
