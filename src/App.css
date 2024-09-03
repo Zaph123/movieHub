@@ -12,8 +12,9 @@
     width: 16px;
    }
  #scroller::-webkit-scrollbar-thumb{
-    background: #080808;
+    background: #131313;
     border-radius: 10px;
     border: 3px solid transparent;
     background-clip: content-box;
    }
+

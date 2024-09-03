@@ -76,7 +76,7 @@ const MovieDetails = () => {
             <a href="#" className="min-w-[200px] w-full h-full text-white border-[1px] border-white rounded-full flex items-center justify-center">Watch trailer</a>
           </div>
         </div>
-        <img className="w-full opacity-50 max-w-[400px] md:top-[70px] h-full md:absolute md:z-10 md:max-w-full top-0 left-0 object-cover" src={IMG_URL + movieInfo[0]?.poster_path} alt={movieInfo[0]?.poster_path} />
+        <img className="w-full md:opacity-50 max-w-[400px] md:top-[70px] h-full md:absolute md:z-10 md:max-w-full top-0 left-0 object-cover" src={IMG_URL + movieInfo[0]?.poster_path} alt={movieInfo[0]?.poster_path} />
       </header>
       <VideoPlayer id={movieInfo[0]?.id}/>
       <section className="w-full min-h-[400px]">

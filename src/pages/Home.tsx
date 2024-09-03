@@ -118,7 +118,7 @@ const Home = () => {
           {/* {isLoading && <p className="text-white">Loading...</p>} */}
           <div className="w-[85%] relative max-w-[700px] h-[45px] flex items-center justify-center gap-[10px]">
             <div className="h-full absolute left-[10px] text-white mx-auto w-auto text-[1.5rem] flex items-center justify-center"><CiSearch /></div>  
-            <input type="text" onKeyUp={handleSearch} placeholder="Search movie..." className="h-full bg-transparent text-white pl-[40px] w-full rounded-[10px] outline outline-[1px] outline-[#3b3b3b] border-none p-[10px] focus:outline-[#646464]" onChange={(e) => setMovieName(e.target.value)}/>
+            <input type="text" onKeyUp={handleSearch} placeholder="Search movie..." className="h-full bg-[#252525] text-white pl-[40px] w-full rounded-full outline-none border-none p-[10px] focus:ring-[1px] focus:ring-[#646464]" onChange={(e) => setMovieName(e.target.value)}/>
           <AnimatePresence>
            {openBar && <motion.div
            id="scroller" 
@@ -126,7 +126,7 @@ const Home = () => {
            initial={{height: 0, y: -50, visibility: "hidden", opacity: 0}}
            animate={{
             height: "250px",
-            y: 0,
+            y: 5,
             visibility: "visible",
             opacity: 1
            }}
@@ -141,7 +141,7 @@ const Home = () => {
             type: "spring",
             ease: [.22,.68,0,1.71]
            }}
-           className="absolute border-[1px] border-[#646464] z-40 top-[45px] p-[10px] rounded-[10px] left-0 w-full overflow-hidden overflow-y-auto h-[300px] bg-[#161616]">
+           className="absolute z-40 top-[45px] p-[10px] rounded-[10px] left-0 w-full overflow-hidden overflow-y-auto h-[300px] bg-[#252525]">
               <h4 className="text-[.85rem] text-[#797979]"><i>found </i> <b>({movieData?.length})</b> results</h4>
               {movieData?.map(data => {
                 return (

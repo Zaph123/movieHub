@@ -8,6 +8,11 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
 import './App.css'
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+
+// import required modules
 
 const Layout = () => {
   return (

@@ -9,6 +9,11 @@ import { URL } from "../pages/Home"
 import { API_KEY } from "../pages/Home"
 import useAxios from "../hooks/useAxios"
 import loader from '../assets/loader.gif'
+import { Swiper, SwiperSlide } from "swiper/react"
+// import Lazy  from "swiper"
+
+import { Navigation} from 'swiper/modules';
+
 
 const Categories = () => {
 
@@ -156,10 +161,37 @@ interface Props {
       return (
           <div className="w-full p-[10px] h-auto gap-[20px] flex flex-col items-start justify-evenly">
           <h1 className="text-[1.5rem] sm:text-[1.2rem] text-white ml-[15px]">{heading}</h1>
-          <div className="w-full min-h-[300px] p-[10px] flex items-center justify-center flex-wrap gap-[15px]">
-          
+          {/* <div className="w-full min-h-[300px] p-[10px] flex items-center justify-center flex-wrap gap-[15px]"> */}
+          <Swiper
+           style={{
+          '--swiper-navigation-color': '#fff',
+          '--swiper-pagination-color': '#fff',
+          padding: "10px"
+        }}
+          spaceBetween={5}
+          slidesPerView={1}
+          navigation={true}
+          lazy={true}
+          modules={[Navigation]}
+          grabCursor={true}
+          breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+          },
+          1024: {
+            slidesPerView: 6,
+            spaceBetween: 10,
+          },
+        }}
+          className="w-full min-h-[300px] p-[20px]">
           {data?.map(c => {
         return  (
+          <SwiperSlide className="flex-shrink-0 rounded-[10px]">
         <motion.div 
          initial={{opacity: 0, y: 50}}
          animate={{opacity: 1, y: 0}}
@@ -185,20 +217,22 @@ interface Props {
           c.key,
          )}
         key={c?.id}
-       className="w-full rounded-xl overflow-auto flex-shrink-0 relative group shadow-2xl cursor-pointer md:max-w-[350px] max-w-[200px] min-h-[300px] flex flex-col items-center justify-center">
+       className="w-full rounded-xl overflow-auto flex-shrink-0 relative group shadow-2xl cursor-pointer min-h-[300px] flex flex-col items-center justify-center">
           <Link to={`/movie/${encodeURIComponent(c?.title || c?.name)}`}><motion.div className="w-full h-full absolute top-0 left-0">
-              <img src={IMG_URL + c?.poster_path} alt={String(c?.id)} className="w-full h-full object-cover"/>
+              <img src={IMG_URL + c?.poster_path} loading="lazy" alt={String(c?.id)} className="w-full h-full object-cover"/>
           </motion.div>
           <div className="absolute w-full left-0 right-0 bottom-0 h-[200px] bg-gradient-to-b from-zinc-950/0 to-zinc-950"/>
           <div className="p-[10px] absolute bottom-[10px] h-[90px] left-[10px] overflow-hidden">
             <h1 className="text-white text-[1rem] w-full">{c?.title || c?.name}</h1>
-            <p className="text-[0.85rem] text-[#b6b6b6]">{c?.overview}</p>
+            <p className="text-[0.85rem] text-[#b6b6b6] text-ellipsis">{c?.overview}</p>
           </div>
           </Link>
        </motion.div>
+       </SwiperSlide>
       )
       })}
-          </div>
+      </Swiper>
+          {/* </div> */}
         </div>
       )
    }
