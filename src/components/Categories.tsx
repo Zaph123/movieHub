@@ -167,11 +167,10 @@ interface Props {
           '--swiper-navigation-color': '#fff',
           '--swiper-pagination-color': '#fff',
           padding: "10px"
-        }}
+        }as React.CSSProperties & { [key: string]: string }}
           spaceBetween={5}
           slidesPerView={1}
           navigation={true}
-          lazy={true}
           modules={[Navigation]}
           grabCursor={true}
           breakpoints={{
