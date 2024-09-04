@@ -96,7 +96,7 @@ const Categories = () => {
     //        fetchTrendingTvSeries()
     //   },[])
   
-      if(isLoading) return <p className="text-white"><img src={loader} alt="" /></p>
+      if(isLoading) return <p className="loader"></p>
       if(error) return <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>
       return (
       <>
@@ -159,7 +159,7 @@ interface Props {
       }
   
       return (
-          <div className="w-full p-[10px] h-auto gap-[20px] flex flex-col items-start justify-evenly">
+          <div className="w-full p-[10px] my-[20px] h-auto gap-[10px] flex flex-col items-start justify-evenly">
           <h1 className="text-[1.5rem] sm:text-[1.2rem] text-white ml-[15px]">{heading}</h1>
           {/* <div className="w-full min-h-[300px] p-[10px] flex items-center justify-center flex-wrap gap-[15px]"> */}
           <Swiper
@@ -167,8 +167,8 @@ interface Props {
           '--swiper-navigation-color': '#fff',
           '--swiper-pagination-color': '#fff',
           padding: "10px"
-        }as React.CSSProperties & { [key: string]: string }}
-          spaceBetween={5}
+        } as React.CSSProperties & { [key: string]: string }}
+          spaceBetween={10}
           slidesPerView={1}
           navigation={true}
           modules={[Navigation]}
@@ -221,9 +221,9 @@ interface Props {
               <img src={IMG_URL + c?.poster_path} loading="lazy" alt={String(c?.id)} className="w-full h-full object-cover"/>
           </motion.div>
           <div className="absolute w-full left-0 right-0 bottom-0 h-[200px] bg-gradient-to-b from-zinc-950/0 to-zinc-950"/>
-          <div className="p-[10px] absolute bottom-[10px] h-[90px] left-[10px] overflow-hidden">
+          <div className="px-[10px] absolute bottom-[10px] h-auto left-[10px] overflow-hidden">
             <h1 className="text-white text-[1rem] w-full">{c?.title || c?.name}</h1>
-            <p className="text-[0.85rem] text-[#b6b6b6] text-ellipsis">{c?.overview}</p>
+            {/* <p className="text-[0.85rem] text-[#b6b6b6] text-ellipsis">{c?.overview}</p> */}
           </div>
           </Link>
        </motion.div>

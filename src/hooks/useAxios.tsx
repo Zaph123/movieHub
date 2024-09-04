@@ -49,8 +49,12 @@ export function useAxios<T = unknown>(
         const responseData: ApiResponse<T>[] = responses.map(res => res.data)
         setData(responseData);
         setIsLoading(false)
-        
-        setError('')
+        // if(responseData[0]?.results?.length === 0){
+        //   setError("No Result found with the name")
+        //   console.log("not found");
+        //   return
+        // }
+       
       } catch (err: any) {
         setError("Please check your Internet Connection and try again")
       } finally {

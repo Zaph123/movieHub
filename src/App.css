@@ -17,4 +17,44 @@
     border: 3px solid transparent;
     background-clip: content-box;
    }
+/* HTML: <div class="loader"></div> */
+.loader {
+   width: 30px;
+   aspect-ratio: 1;
+   display: grid;
+   border: 4px solid #0000;
+   border-radius: 50%;
+   border-right-color: #fff;
+   animation: l15 1s infinite linear;
+ }
+ .loader::before,
+ .loader::after {    
+   content: "";
+   grid-area: 1/1;
+   margin: 2px;
+   border: inherit;
+   border-radius: 50%;
+   animation: l15 2s infinite;
+ }
+ .loader::after {
+   margin: 8px;
+   animation-duration: 3s;
+ }
+ @keyframes l15{ 
+   100%{transform: rotate(1turn)}
+ }
 
+ /* HTML: <div class="loader"></div> */
+.loader1 {
+   height: 4px;
+   width: 130px;
+   --c:no-repeat linear-gradient(#6100ee 0 0);
+   background: var(--c),var(--c),#d7b8fc;
+   background-size: 60% 100%;
+   animation: l16 3s infinite;
+ }
+ @keyframes l16 {
+   0%   {background-position:-150% 0,-150% 0}
+   66%  {background-position: 250% 0,-150% 0}
+   100% {background-position: 250% 0, 250% 0}
+ }

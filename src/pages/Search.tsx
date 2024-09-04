@@ -19,21 +19,49 @@ import useAxios from "../hooks/useAxios";
 
 
 const Search = () => {
-    const [movieData, setMovieData] = useState<Results[] | null>([])
-    const [movieName, setMovieName] = useState("")
-    const {data, error} = useAxios<Results>([
-      `${URL}/search/movie?query=${movieName}&api_key=${API_KEY}`
+    const [movieData, setMovieData] = useState<Results[] | undefined | null>([])
+    const [movieName, setMovieName] = useState<string>("")
+    const [errName, setErrName] = useState<string>("")
+    const [loading, setLoading] = useState<boolean>(false)
+    const [errMsg, setErrMsg] = useState<string>("")
+    const [type, setType] = useState("movie")
+    const {data, error, isLoading} = useAxios<Results>([
+      `${URL}/search/${type}?query=${movieName}&api_key=${API_KEY}`,
     ])
 
 
     useEffect(() => {
-      setMovieData(data && data[0]?.results)
-    },[movieData])
+      if(data){
+      console.log(type);
+      }
+    },[movieData, type])
 
     const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if(e.key === "Enter"){
-          setMovieData(data && data[0]?.results)
+        setLoading(true)
+        setMovieData([])
+        if(data){
+         if(movieName === ""){
+            setErrMsg("field can't be empty")
+            setLoading(false)
+          }else{
+
+          if(data[0]?.results?.length === 0){
+            setErrMsg('No Movie found with the name ')
+            setMovieData([])
+            setErrName(movieName)
+            setLoading(false)
+          }
+          
+          else{
+            const filterResults: Results[] | undefined = data[0]?.results?.filter(c => c.title !== movieName)
+            setMovieData(filterResults)
+            setErrMsg("")
+            setLoading(false)
+          }
+          }
         }
+      }
     }
     const {setMovieInfo, setIsAuthorized} = useMovie()
     
@@ -79,13 +107,18 @@ const Search = () => {
     <div className="w-full relative min-h-screen p-[10px] bg-[#0f0f0f] gap-[20px] flex flex-col items-center justify-start">
       <Nav />
       <div className="w-full h-[150px]"/>
-      <div className="w-[85%] relative max-w-[700px] h-[45px] flex items-center justify-center gap-[10px]">
+      <div className="w-[85%] relative max-w-[700px] h-[55px] md:h-[45px] flex items-center justify-center gap-[10px]">
        <div className="h-full absolute left-[10px] mx-auto text-white w-auto text-[1.5rem] flex items-center justify-center"><CiSearch /></div>  
-        <input type="text" onKeyUp={handleSearch} placeholder="Search movie..." className="h-full bg-transparent pl-[40px] text-white w-full rounded-[10px] outline outline-[1px] outline-[#3b3b3b] border-none p-[10px] focus:outline-[#646464]" onChange={(e) => setMovieName(e.target.value)}/>
+       <input type="text" onKeyUp={handleSearch} placeholder="Search movie/tv series..." className="h-full bg-[#252525] text-white pl-[40px] w-full rounded-full outline-none border-none p-[10px] focus:ring-[1px] focus:ring-[#424242]" onChange={(e) => setMovieName(e.target.value)}/>
+       <select onChange={(e) => setType(e.target.value)} name="slect" id="select" className="h-[45px] bg-[#0f0f0f] border-2 border-[#1e1e1e] focus:border-[#fff] px-[10px] text-white rounded-[5px] max-w-[95px] cursor-pointer">
+        <option value="movie">movie</option>
+        <option value="tv">tv</option>
+       </select>
       </div>
-        {/* {isLoading && <p className="text-white">Loading...</p>} */}
-      <motion.div layout className="flex p-[10px] h-auto w-full max-w-[1200px] flex-wrap items-center justify-center gap-[20px]">
+        {loading && (isLoading && <p className="loader"></p>)}
+       <motion.div layout className="flex p-[10px] min-h-[300px] h-auto w-full max-w-[1200px] flex-wrap items-center justify-center gap-[20px]">
         {error && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>}
+        {errMsg !== "" && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-[#797979] flex flex-col items-center justify-center">{errMsg}<i className="text-white">{errName}</i></motion.p>}
         {movieData?.map(c => {
           return  (
          <motion.div 
@@ -114,11 +147,11 @@ const Search = () => {
            )}
           key={c.id} className="w-full relative group bg-[#0f0f0f] cursor-pointer max-w-[200px] min-h-[300px] flex flex-col items-center justify-center">
             <Link to={`/movie/${encodeURIComponent(c.title)}`}><motion.div className="w-full h-full absolute top-0 left-0">
-                <img src={IMG_URL + c.poster_path} alt={c.title} className="w-full h-full object-cover"/>
+                <img src={IMG_URL + c.poster_path} alt={c?.title || c?.name} className="w-full h-full object-cover"/>
             </motion.div>
             <div className="absolute w-full left-0 right-0 bottom-0 h-[100px] bg-gradient-to-b from-zinc-950/5 to-zinc-950"/>
             <div className="p-[10px] absolute bottom-0 left-[10px]">
-              <h1 className="text-white text-[1rem] w-full">{c.title}</h1>
+              <h1 className="text-white text-[1rem] w-full">{c?.title || c?.name}</h1>
             </div>
             </Link>
          </motion.div>

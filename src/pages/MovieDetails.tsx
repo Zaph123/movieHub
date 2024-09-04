@@ -33,6 +33,7 @@ const MovieDetails = () => {
     const {data} = useAxios<Results>([
       `${URL}/movie/${movieInfo[0]?.id}/recommendations?&api_key=${API_KEY}&language=en-US&page=1`,
       `${URL}/movie/${movieInfo[0]?.id}/credits?&api_key=${API_KEY}&language=en-US&page=1`,
+      `${URL}/movie/${movieInfo[0]?.id}/similar?&api_key=${API_KEY}&language=en-US&page=1`,
       `${URL}/genre/movie/list?&api_key=${API_KEY}&language=en-US`,
       // `${URL}/search/collection?query=thor/credits?&api_key=${API_KEY}&language=en-US&page=1`,
     ])
@@ -48,7 +49,7 @@ const MovieDetails = () => {
         });
       };
       setFormattedDate(formatDate(movieInfo[0]?.release_date))
-      // console.log(data[2]);
+      console.log(data && data[2]?.results);
       
   },[movieInfo[0]?.release_date])
 
@@ -79,8 +80,9 @@ const MovieDetails = () => {
         <img className="w-full md:opacity-50 max-w-[400px] md:top-[70px] h-full md:absolute md:z-10 md:max-w-full top-0 left-0 object-cover" src={IMG_URL + movieInfo[0]?.poster_path} alt={movieInfo[0]?.poster_path} />
       </header>
       <VideoPlayer id={movieInfo[0]?.id}/>
-      <section className="w-full min-h-[400px]">
-       <Section data={data && data[0]?.results} heading="You might also like"/>
+      <section className="w-full">
+      {data && data[2]?.results?.length !== 0 && <Section data={data && data[2]?.results} heading="Similar"/>}
+      {data && data[0]?.results?.length !== 0 && <Section data={data && data[0]?.results} heading="You might also like"/>}
       </section>
       <Categories />
     </main>
