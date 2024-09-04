@@ -8,7 +8,7 @@ import { IMG_URL } from "../pages/Home"
 import { URL } from "../pages/Home"
 import { API_KEY } from "../pages/Home"
 import useAxios from "../hooks/useAxios"
-import loader from '../assets/loader.gif'
+// import loader from '../assets/loader.gif'
 import { Swiper, SwiperSlide } from "swiper/react"
 // import Lazy  from "swiper"
 
