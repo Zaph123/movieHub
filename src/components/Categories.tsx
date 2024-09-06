@@ -97,7 +97,7 @@ const Categories = () => {
     //   },[])
   
       if(isLoading) return <p className="loader"></p>
-      if(error) return <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>
+      if(error) return <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white text-center flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>
       return (
       <>
       <Section data={popular?.results} heading="Popular" />
@@ -168,7 +168,7 @@ interface Props {
           '--swiper-pagination-color': '#fff',
           padding: "10px"
         } as React.CSSProperties & { [key: string]: string }}
-          spaceBetween={10}
+          spaceBetween={-20}
           slidesPerView={1}
           navigation={true}
           modules={[Navigation]}
@@ -216,7 +216,7 @@ interface Props {
           c.key,
          )}
         key={c?.id}
-       className="w-full rounded-xl overflow-auto flex-shrink-0 relative group shadow-2xl cursor-pointer min-h-[300px] flex flex-col items-center justify-center">
+       className="md:w-[90%] w-full rounded-xl overflow-auto flex-shrink-0 relative group shadow-2xl cursor-pointer min-h-[300px] flex flex-col items-center justify-center">
           <Link to={`/movie/${encodeURIComponent(c?.title || c?.name)}`}><motion.div className="w-full h-full absolute top-0 left-0">
               <img src={IMG_URL + c?.poster_path} loading="lazy" alt={String(c?.id)} className="w-full h-full object-cover"/>
           </motion.div>
