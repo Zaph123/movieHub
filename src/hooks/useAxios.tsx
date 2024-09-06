@@ -11,7 +11,10 @@ export interface ApiResponse<T> {
   page: number,
   results: T[] | null,
   total_pages: number,
-  total_results: number
+  total_results: number,
+  cast: T[] | null,
+  crew: T[] | null,
+  id: number
 }
 
 export interface Results {

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion";
 import { CiSearch } from 'react-icons/ci'
+import { FaArrowUp } from "react-icons/fa";
 import { GrConnect } from "react-icons/gr";
 import Nav from "../components/Nav";
 import { useMovie } from "../filmsContext/MovieProvider";
@@ -11,6 +12,7 @@ import { URL } from "./Home";
 import { API_KEY } from "./Home";
 import { Link } from "react-router-dom";
 import useAxios from "../hooks/useAxios";
+import search from '../assets/not-found.png'
 
 //  const API_KEY = "790d5cae"
 //  const MOVIEDB_API_KEY = "783b989891a1dfd1d14239cf72263160"
@@ -28,17 +30,16 @@ const Search = () => {
     const {data, error, isLoading} = useAxios<Results>([
       `${URL}/search/${type}?query=${movieName}&api_key=${API_KEY}`,
     ])
-
-
+ 
+    
     useEffect(() => {
       if(data){
-      console.log(type);
+        console.log(type);
       }
     },[movieData, type])
-
-    const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if(e.key === "Enter"){
-        setLoading(true)
+    
+    const searchLogic = () => {
+      setLoading(true)
         setMovieData([])
         if(data){
          if(movieName === ""){
@@ -47,7 +48,7 @@ const Search = () => {
           }else{
 
           if(data[0]?.results?.length === 0){
-            setErrMsg('No Movie found with the name ')
+            setErrMsg("Sorry, we couldn't find the movie with the name")
             setMovieData([])
             setErrName(movieName)
             setLoading(false)
@@ -61,6 +62,15 @@ const Search = () => {
           }
           }
         }
+    }
+
+    const onHandleSearch = () => {
+        searchLogic()
+    }
+
+    const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if(e.key === "Enter"){
+        searchLogic()
       }
     }
     const {setMovieInfo, setIsAuthorized} = useMovie()
@@ -104,21 +114,30 @@ const Search = () => {
     }
 
   return (
-    <div className="w-full relative min-h-screen p-[10px] bg-[#0f0f0f] gap-[20px] flex flex-col items-center justify-start">
+    <div className="w-full relative min-h-screen bg-[#0f0f0f] gap-[20px] flex flex-col items-center justify-start">
       <Nav />
       <div className="w-full h-[150px]"/>
-      <div className="w-[85%] relative max-w-[700px] h-[55px] md:h-[45px] flex items-center justify-center gap-[10px]">
+      <div className="w-[85%] max-w-[700px] h-[55px] md:h-[45px] flex items-center justify-center gap-[10px]">
+      <div className="w-full h-full relative flex items-center justify-center">
        <div className="h-full absolute left-[10px] mx-auto text-white w-auto text-[1.5rem] flex items-center justify-center"><CiSearch /></div>  
-       <input type="text" onKeyUp={handleSearch} placeholder="Search movie/tv series..." className="h-full bg-[#252525] text-white pl-[40px] w-full rounded-full outline-none border-none p-[10px] focus:ring-[1px] focus:ring-[#424242]" onChange={(e) => setMovieName(e.target.value)}/>
-       <select onChange={(e) => setType(e.target.value)} name="slect" id="select" className="h-[45px] bg-[#0f0f0f] border-2 border-[#1e1e1e] focus:border-[#fff] px-[10px] text-white rounded-[5px] max-w-[95px] cursor-pointer">
+       <input type="text" onKeyDown={handleSearch} placeholder="Search movie/tv series..." className="h-full bg-[#252525] text-white pl-[40px] pr-[115px] md:pr-[100px] w-full rounded-full outline-none border-none p-[10px] focus:ring-[1px] focus:ring-[#424242]" onChange={(e) => setMovieName(e.target.value)}/>
+       <motion.select whileTap={{scale: .95}}  onChange={(e) => setType(e.target.value)} name="slect" id="select" className="absolute right-[5px] h-[45px] bg-gradient-to-b from-[#1f1f1f] bg-[#181818] active:bg-[#1a1a1a] active:text-[#cccccc] md:h-[35px] md:w-[90px] border-none border-[#1e1e1e] outline-none px-[10px] text-white text-[.9rem] rounded-full w-full max-w-[105px] cursor-pointer">
         <option value="movie">movie</option>
         <option value="tv">tv</option>
-       </select>
+       </motion.select>
+       </div>
+       <motion.div whileTap={{scale: .95}} onClick={onHandleSearch} className="max-w-[50px] active:text-[#474747] active:bg-[rgba(255,255,255,0.72)] cursor-pointer flex-shrink-0 w-full text-[1.2rem] md:text-[1rem] h-[50px] md:w-[40px] md:h-[40px] rounded-full bg-white flex items-center justify-center">
+        <FaArrowUp />
+       </motion.div>
       </div>
         {loading && (isLoading && <p className="loader"></p>)}
-       <motion.div layout className="flex p-[10px] min-h-[300px] h-auto w-full max-w-[1200px] flex-wrap items-center justify-center gap-[20px]">
-        {error && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>}
-        {errMsg !== "" && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-[#797979] flex flex-col items-center justify-center">{errMsg}<i className="text-white">{errName}</i></motion.p>}
+       <motion.div layout className="flex p-[10px] min-h-[400px] h-auto w-full max-w-[1200px] flex-wrap items-center justify-center gap-[20px]">
+        {error && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white text-center flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>}
+        {errMsg !== "" && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-[#797979] sm:text-[.9rem] text-center flex flex-col items-center justify-center">
+          <img src={search} alt="" className="md:max-w-[150px]"/>
+          {errMsg}
+        <i className="text-white">{errName}</i>
+          </motion.p>}
         {movieData?.map(c => {
           return  (
          <motion.div 

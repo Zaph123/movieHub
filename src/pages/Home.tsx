@@ -7,14 +7,10 @@ import { Link } from "react-router-dom"
 // import { movieContext } from "../filmsContext/MovieProvider"
 // import { MOVIECONTEXT } from "../filmsContext/MovieProvider"
 import { useMovie } from "../filmsContext/MovieProvider"
-// import { GrConnect } from "react-icons/gr"
 import Categories from "../components/Categories"
 import { Results } from "../hooks/useAxios"
 import useAxios from "../hooks/useAxios"
-
-
-
-
+import bgImg from '../assets/movie-collection.jpg'
 
 
 export const URL = 'https://api.themoviedb.org/3'
@@ -113,10 +109,15 @@ const Home = () => {
   return (
     <div className="relative w-full min-h-screen bg-[#0f0f0f]">
       <Nav />
-      <div className="w-full h-[150px]"/>
+      <div className="w-full absolute h-[200px]">
+        <img src={bgImg} alt="" className="w-full h-full object-cover"/>
+       <div className="absolute z-10 h-[70%] w-full bg-gradient-to-t from-[#0f0f0f00] to-[#0f0f0f] top-0"/>
+       <div className="absolute z-10 h-[70%] w-full bg-gradient-to-b from-[#0f0f0f00] to-[#0f0f0f] bottom-0"/>
+      </div>
+      <div className="w-full relative h-[250px]"/>
         <section className="w-full flex h-full flex-col items-center justify-start gap-[20px]">
           {/* {isLoading && <p className="text-white">Loading...</p>} */}
-          <div className="w-[85%] relative max-w-[700px] h-[55px] md:h-[45px] flex items-center justify-center gap-[10px]">
+          <div className="w-[85%] relative z-40 max-w-[700px] h-[55px] md:h-[45px] flex items-center justify-center gap-[10px]">
             <div className="h-full absolute left-[10px] text-white mx-auto w-auto text-[1.5rem] flex items-center justify-center"><CiSearch /></div>  
             <input type="text" onKeyUp={handleSearch} placeholder="Search movie/tv series..." className="h-full bg-[#252525] text-white pl-[40px] w-full rounded-full outline-none border-none p-[10px] focus:ring-[1px] focus:ring-[#646464]" onChange={(e) => setMovieName(e.target.value)}/>
           <AnimatePresence>
