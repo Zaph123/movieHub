@@ -132,8 +132,8 @@ const Search = () => {
       </div>
         {loading && (isLoading && <p className="loader"></p>)}
        <motion.div layout className="flex p-[10px] min-h-[400px] h-auto w-full max-w-[1200px] flex-wrap items-center justify-center gap-[20px]">
-        {error && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white text-center flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>}
-        {errMsg !== "" && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-[#797979] sm:text-[.9rem] text-center flex flex-col items-center justify-center">
+        {error && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white text-center md:text-[.9rem] flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>}
+        {errMsg !== "" && !error && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-[#797979] sm:text-[.9rem] text-center flex flex-col items-center justify-center">
           <img src={search} alt="" className="md:max-w-[150px]"/>
           {errMsg}
         <i className="text-white">{errName}</i>

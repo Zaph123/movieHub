@@ -4,15 +4,14 @@ import { IMG_URL } from "./Home"
 import Nav from "../components/Nav"
 import { FaStar } from "react-icons/fa"
 import Categories from "../components/Categories"
-import useAxios from "../hooks/useAxios"
-import { API_KEY } from "./Home"
-import { Results } from "../hooks/useAxios"
-import { URL } from "./Home"
-import { Section } from "../components/Categories"
+import Similar from "../components/Similar"
+import Recommendations from "../components/Recommendations"
+import NowPlaying from "../components/NowPlaying"
 import VideoPlayer from "./VideoPlayer"
 import { useNavigate } from "react-router"
-// import movieTrailer from 'movie-trailer'
+import { TemplateOne, TemplateTwo, TemplateThree } from "../components/DisplayTemplate"
 import Casts from "../components/Casts"
+import { TrendingMovies, TrendingTv } from "../components/Trending"
 
 
 //'https://api.themoviedb.org/3/movie/movie_id/recommendations?language=en-US&page=1'
@@ -32,16 +31,7 @@ const MovieDetails = () => {
       return <div>No movie information available.</div>;
     }
 
-    const {data} = useAxios<Results>([
-      `${URL}/movie/${movieInfo[0]?.id}/recommendations?&api_key=${API_KEY}&language=en-US&page=1`,
-      `${URL}/movie/${movieInfo[0]?.id}/credits?&api_key=${API_KEY}&language=en-US&page=1`,
-      `${URL}/movie/${movieInfo[0]?.id}/similar?&api_key=${API_KEY}&language=en-US&page=1`,
-      `${URL}/movie/now_playing?&api_key=${API_KEY}&language=en-US&page=1`,
-      `${URL}/genre/movie/list?&api_key=${API_KEY}&language=en-US`,
-      // `${URL}/search/collection?query=thor/credits?&api_key=${API_KEY}&language=en-US&page=1`,
-    ])
-  //  const [recData] = data
-
+   
     useEffect(() => {
       const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -52,7 +42,6 @@ const MovieDetails = () => {
         });
       };
       setFormattedDate(formatDate(movieInfo[0]?.release_date))
-      console.log(data && data[1]);
       
   },[movieInfo[0]?.release_date])
 
@@ -90,12 +79,29 @@ const MovieDetails = () => {
         <img className="w-full md:opacity-50 max-w-[400px] md:top-[70px] h-full md:absolute md:z-10 md:max-w-full top-0 left-0 object-cover" src={IMG_URL + movieInfo[0]?.poster_path} alt={movieInfo[0]?.poster_path} />
       </header>
       <VideoPlayer id={movieInfo[0]?.id}/>
-      <section className="w-full">
-      {data && data[2]?.results?.length !== 0 && <Section data={data && data[2]?.results} heading="Similar"/>}
-      {data && data[0]?.results?.length !== 0 && <Section data={data && data[0]?.results} heading="You might also like"/>}
-      {data && data[3]?.results?.length !== 0 && <Section data={data && data[3]?.results} heading="Now playing"/>}
-      </section>
+
+      <section className="w-full flex xl:flex-col relative items-start justify-center gap-[10px] px-[10px]">
+        <div className="w-full max-w-[1000px] xl:max-w-full flex flex-col items-start justify-start">
+       <Similar>
+        <TemplateTwo data={null} handleMovieInfo={function (): void {} } />
+      </Similar>
+       <Recommendations>
+        <TemplateOne data={null} handleMovieInfo={function (): void {} } />
+      </Recommendations>
+       <NowPlaying>
+        <TemplateOne data={null} handleMovieInfo={function (): void {} } />
+      </NowPlaying>
       <Categories />
+      </div>
+      <div className="w-full max-w-[350px] xl:flex-row md:flex-wrap xl:max-w-full xl:items-center xl:justify-around h-auto overflow-hidden flex flex-col justify-start items-start sticky top-0 gap-[30px]">
+        <TrendingMovies>
+         <TemplateThree data={null} handleMovieInfo={function (): void {} } />
+        </TrendingMovies>
+        <TrendingTv>
+         <TemplateThree data={null} handleMovieInfo={function (): void {} } />
+        </TrendingTv>
+       </div>
+      </section>
     </main>
   )
 }

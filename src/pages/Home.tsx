@@ -1,13 +1,13 @@
 
 import { useEffect, useRef, useState } from "react"
 import { CiSearch } from "react-icons/ci"
+import { GrConnect } from "react-icons/gr"
 import Nav from "../components/Nav"
 import { motion, AnimatePresence } from "framer-motion"
 import { Link } from "react-router-dom"
-// import { movieContext } from "../filmsContext/MovieProvider"
-// import { MOVIECONTEXT } from "../filmsContext/MovieProvider"
 import { useMovie } from "../filmsContext/MovieProvider"
 import Categories from "../components/Categories"
+import Trending from "../components/Trending"
 import { Results } from "../hooks/useAxios"
 import useAxios from "../hooks/useAxios"
 import bgImg from '../assets/movie-collection.jpg'
@@ -22,7 +22,7 @@ const Home = () => {
     const [movieName, setMovieName] = useState<string>('')
     const [openBar, setOpenBar] = useState<boolean>(false)
 
-    const {data} = useAxios<Results>([
+    const {data, error, isLoading} = useAxios<Results>([
       `${URL}/search/movie?query=${movieName}&api_key=${API_KEY}`
     ])
    
@@ -174,7 +174,11 @@ const Home = () => {
           </AnimatePresence>
           </div>
           <div className="w-full min-h-[400px] flex flex-col items-center justify-center">
-            <Categories />
+            {error 
+            ? <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white text-center flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>
+            : isLoading 
+            ? <p className="loader"></p>
+            : <><Trending/><Categories /></>}
           </div>
         </section>
     </div>

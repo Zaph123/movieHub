@@ -27,10 +27,10 @@ const Nav = () => {
          {/* <a href="/movieHub/" className="text-[1rem] text-white">Movies</a> */}
          <a href="/movieHub/search" className="text-[1.5rem] text-white"><CiSearch/></a>
       </div>
-      <div onClick={() => setToggleMenu(!toggleMenu)} className="text-white w-[25px] h-[25px] relative cursor-pointer text-[1.5rem] hidden md:block">
+      <div onClick={() => setToggleMenu(!toggleMenu)} className="text-white w-[25px] h-[25px] relative cursor-pointer text-[2rem] hidden md:block">
           <AnimatePresence>
           {toggleMenu ? <motion.div key='one' className="absolute left-0 top-0" initial={{scale: 0}} animate={{scale: 1}} exit={{scale: 0}}><FaTimes /></motion.div>
-          : <motion.div key='two' initial={{scale: 0}} animate={{scale: 1}} exit={{scale: 0}}><CgMenuRight /></motion.div>}
+          : <motion.div key='two' initial={{scale: 0}} animate={{scale: 1}} exit={{scale: 0}}><CgMenuRight className=""/></motion.div>}
           </AnimatePresence>
         </div>
       </div>
