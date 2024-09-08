@@ -8,7 +8,7 @@ import Similar from "../components/Similar"
 import Recommendations from "../components/Recommendations"
 import NowPlaying from "../components/NowPlaying"
 import VideoPlayer from "./VideoPlayer"
-import { useNavigate } from "react-router"
+// import { useNavigate } from "react-router"
 import { TemplateOne, TemplateTwo, TemplateThree } from "../components/DisplayTemplate"
 import Casts from "../components/Casts"
 import { TrendingMovies, TrendingTv } from "../components/Trending"
@@ -17,15 +17,15 @@ import { TrendingMovies, TrendingTv } from "../components/Trending"
 //'https://api.themoviedb.org/3/movie/movie_id/recommendations?language=en-US&page=1'
 //'https://api.themoviedb.org/3/movie/movie_id/credits?language=en-US'
 const MovieDetails = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [formattedDate, setFormattedDate] = useState("")
-  const {movieInfo, isAuthorized} = useMovie()
+  const {movieInfo} = useMovie()
 
-  useEffect(() => {
-    if(!isAuthorized){
-       navigate('/', { replace: true })
-    }
-  },[isAuthorized])
+  // useEffect(() => {
+  //   if(!isAuthorized){
+  //      navigate('/', { replace: true })
+  //   }
+  // },[isAuthorized])
     
     if (!movieInfo) {
       return <div>No movie information available.</div>;

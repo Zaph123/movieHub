@@ -88,7 +88,7 @@ const Trending = () => {
   }
 
   return (
-    <div className="w-full my-[20px] h-auto gap-[10px] flex flex-col items-start justify-evenly">
+    <div className="w-full my-[20px] p-[10px] h-auto gap-[10px] flex flex-col items-start justify-evenly">
       <h1 className="text-[1.5rem] sm:text-[1.2rem] text-white ml-[15px]">
         Trending Movies
       </h1>
