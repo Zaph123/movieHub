@@ -23,8 +23,18 @@ interface Cast {
 const Casts = () => {
   const { movieInfo } = useMovie()
   const [cast, setCast] = useState<Cast[] | undefined>([])
+
+  const currentMovie  = () => {
+    if(movieInfo){
+    const curMovie = movieInfo.slice(movieInfo.length - 1)
+    return curMovie
+    }
+   }
+   
+  const movie = currentMovie() ?? []
+  
   const {data} = useAxios<Cast>([
-    `${URL}/movie/${movieInfo && movieInfo[0]?.id}/credits?&api_key=${API_KEY}&language=en-US&page=1`,
+    `${URL}/movie/${movie[0]?.id}/credits?&api_key=${API_KEY}&language=en-US&page=1`,
   ])
 
   useEffect(() => {
@@ -33,7 +43,6 @@ const Casts = () => {
     const movieCasts = data[0].cast?.splice(0, 4)
     setCast(movieCasts)
     console.log(cast);
-    
     }
     
   },[data])
