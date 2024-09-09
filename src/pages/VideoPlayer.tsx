@@ -1,4 +1,4 @@
-import useAxios from "../hooks/useAxios"
+import useAxios from "../hooks/useAxios";
 import { API_KEY } from "./Home"
 import { URL } from "./Home"
 import { Results } from "../hooks/useAxios";

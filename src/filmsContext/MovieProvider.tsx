@@ -1,12 +1,22 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react"
 import { Results } from "../hooks/useAxios"
 import useLocalStorage from "../hooks/useLocalStorage"
+import { ApiResponse } from "../hooks/useAxios"
+import { Genres } from "../components/Genre"
 
 export interface MOVIECONTEXT {
     movieInfo: Results[] | null
     setMovieInfo: React.Dispatch<React.SetStateAction<Results[] | null>>,
+    genreData: ApiResponse<Results>[] | null
+    setGenreData: React.Dispatch<React.SetStateAction<ApiResponse<Results>[] | null>>,
     isAuthorized: boolean,
     setIsAuthorized: React.Dispatch<React.SetStateAction<boolean>>,
+    error: string | null,
+    setError: React.Dispatch<React.SetStateAction<string | null>>,
+    isLoading: boolean,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    SETGENRE: React.Dispatch<React.SetStateAction<ApiResponse<Genres>[] | null>>,
+    GENRE: ApiResponse<Genres>[] | null
 }
 
 export const MovieContext = createContext<MOVIECONTEXT | null>(null)
@@ -21,15 +31,42 @@ const MovieProvider = ({children}: myCom) => {
       const savedMovies = localStorage.getItem('movieData');
       return savedMovies ? JSON.parse(savedMovies) : [];
     })
+
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false)
-    
-    const {setItem} = useLocalStorage("movieData")
-  
+    const [genreData, setGenreData] = useState<ApiResponse<Results>[] | null>(() => {
+      const savedGenres = localStorage.getItem('genre');
+      return savedGenres ? JSON.parse(savedGenres) : [];
+    })
+   
+    const [GENRE, SETGENRE] = useState<ApiResponse<Genres>[] | null>([])
+
     useEffect(() => {
-     setItem(movieInfo)
+      const {setItem} = useLocalStorage("movieData")
+      setItem(movieInfo)
    }, [movieInfo])
  
-    const context = {movieInfo, setMovieInfo, isAuthorized, setIsAuthorized}
+    useEffect(() => {
+      const {setItem} = useLocalStorage("genre")
+      setItem(genreData)
+   }, [genreData])
+ 
+    const context = {
+      movieInfo,
+      setMovieInfo,
+      genreData,
+      setGenreData, 
+      isAuthorized, 
+      setIsAuthorized, 
+      error, 
+      setError, 
+      isLoading,
+      setIsLoading,
+      SETGENRE,
+      GENRE,
+    }
 
   return (
     <MovieContext.Provider value={context}>

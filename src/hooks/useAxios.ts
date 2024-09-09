@@ -14,7 +14,8 @@ export interface ApiResponse<T> {
   total_results: number,
   cast: T[] | null,
   crew: T[] | null,
-  id: number
+  id: number,
+  genres: T[] | null
 }
 
 export interface Results {

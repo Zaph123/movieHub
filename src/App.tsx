@@ -2,6 +2,8 @@ import Home from './pages/Home';
 import Search from './pages/Search'
 import NotFound from './pages/NotFound';
 import MovieDetails from './pages/MovieDetails';
+import Footer from './components/Footer';
+import Genre from './pages/Genre';
 import MovieProvider from './filmsContext/MovieProvider';
 // import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
@@ -19,6 +21,7 @@ const Layout = () => {
     <MovieProvider>
      <main className='font-poppins w-full bg-[#0f0f0f]'>
       <Outlet />
+      <Footer />
      </main>
     </MovieProvider>
   )
@@ -40,6 +43,10 @@ const Layout = () => {
         {
           path: "movie/:movieName",
           element: <MovieDetails />
+         },
+        {
+          path: "genre/:name",
+          element: <Genre />
          },
         {
           path: "*",

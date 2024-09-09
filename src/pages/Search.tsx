@@ -13,6 +13,7 @@ import { API_KEY } from "./Home";
 import { Link } from "react-router-dom";
 import useAxios from "../hooks/useAxios";
 import search from '../assets/not-found.png'
+import { Genre } from "../components/Genre";
 
 //  const API_KEY = "790d5cae"
 //  const MOVIEDB_API_KEY = "783b989891a1dfd1d14239cf72263160"
@@ -130,6 +131,7 @@ const Search = () => {
         <FaArrowUp />
        </motion.div>
       </div>
+      <Genre />
         {loading && (isLoading && <p className="loader"></p>)}
        <motion.div layout className="flex p-[10px] min-h-[400px] h-auto w-full max-w-[1200px] flex-wrap items-center justify-center gap-[20px]">
         {error && <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white text-center md:text-[.9rem] flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>}

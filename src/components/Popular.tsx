@@ -51,7 +51,13 @@ interface Children {
       }  
       
       
-      setMovieInfo([Data])
+      setMovieInfo((prev) => {
+        if (prev) {
+          return [...prev, Data];
+        } else {
+          return [Data]; // If prev is null, initialize with the first Data element
+        }
+      })
       setIsAuthorized(true)
       document.getElementById("header")?.scrollIntoView({behavior: "smooth"})
       // console.log(scroll);

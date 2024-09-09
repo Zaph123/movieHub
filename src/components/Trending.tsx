@@ -65,7 +65,13 @@ const Trending = () => {
       }  
       
       
-      setMovieInfo([Data])
+      setMovieInfo((prev) => {
+        if (prev) {
+          return [...prev, Data];
+        } else {
+          return [Data]; // If prev is null, initialize with the first Data element
+        }
+      })
       setIsAuthorized(true)
       document.getElementById("header")?.scrollIntoView({behavior: "smooth"})
       // console.log(scroll);
@@ -89,7 +95,7 @@ const Trending = () => {
 
   return (
     <div className="w-full my-[20px] p-[10px] h-auto gap-[10px] flex flex-col items-start justify-evenly">
-      <h1 className="text-[1.5rem] sm:text-[1.2rem] text-white ml-[15px]">
+      <h1 className="text-[1.5rem] sm:text-[1.2rem] text-white">
         Trending Movies
       </h1>
       {enhancedChildren}
@@ -140,7 +146,13 @@ export const TrendingTv = ({children}: Children) => {
       }  
       
       
-      setMovieInfo([Data])
+      setMovieInfo((prev) => {
+        if (prev) {
+          return [...prev, Data];
+        } else {
+          return [Data]; // If prev is null, initialize with the first Data element
+        }
+      })
       setIsAuthorized(true)
       document.getElementById("header")?.scrollIntoView({behavior: "smooth"})
       // console.log(scroll);
@@ -164,7 +176,7 @@ export const TrendingTv = ({children}: Children) => {
 
   return (
     <div className="w-full my-[20px] h-auto gap-[10px] flex flex-col items-start justify-evenly">
-      <h1 className="text-[1.5rem] sm:text-[1.2rem] text-white ml-[15px]">
+      <h1 className="text-[1.5rem] sm:text-[1.2rem] text-white">
         Trending Series
       </h1>
       {enhancedChildren}
