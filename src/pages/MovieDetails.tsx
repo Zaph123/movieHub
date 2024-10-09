@@ -12,6 +12,7 @@ import VideoPlayer from "./VideoPlayer"
 import { TemplateOne, TemplateTwo, TemplateThree } from "../components/DisplayTemplate"
 import Casts from "../components/Casts"
 import { TrendingMovies, TrendingTv } from "../components/Trending"
+import Genre from "./Genre"
 
 
 const MovieDetails = () => {
@@ -51,7 +52,7 @@ const MovieDetails = () => {
     <main className="w-full">
       <Nav />
       <header id="header" className="w-full h-auto pt-[70px] flex-wrap flex items-center justify-evenly relative overflow-hidden">
-        <div className="absolute left-0 hidden z-20 md:block h-full w-full bg-gradient-to-r from-zinc-950 to-zinc-950/0"/> 
+        <div className="absolute top-0 left-0 hidden z-20 md:block h-full w-full bg-gradient-to-r from-zinc-950 to-zinc-950/0"/> 
          <div className="absolute hidden md:block z-20 h-[50%] w-full bg-gradient-to-b from-[#0f0f0f00] to-[#0f0f0f] bottom-0"/>
         <div className="w-full z-30 max-w-[800px] h-auto relative gap-[20px] flex flex-col items-start justify-end p-[30px] pb-[50px]">
           <h1 className="text-[4rem] sm:text-[2rem] font-bold w-full max-w-[900px] text-white">{currentMovie()[0]?.title || currentMovie()[0]?.name}</h1>
@@ -78,20 +79,20 @@ const MovieDetails = () => {
           </div>
           <Casts />
         </div>
-        <img className="w-full md:opacity-50 max-w-[400px] md:top-[70px] h-full md:absolute md:z-10 md:max-w-full top-0 left-0 object-cover" src={IMG_URL + currentMovie()[0]?.poster_path} alt={currentMovie()[0]?.poster_path} />
+        <img className="w-full md:opacity-50 max-w-[400px] h-full md:absolute md:z-10 md:max-w-full top-0 left-0 object-cover" src={IMG_URL + currentMovie()[0]?.poster_path} alt={currentMovie()[0]?.poster_path} />
       </header>
       <VideoPlayer id={currentMovie()[0]?.id}/>
 
       <section className="w-full flex xl:flex-col relative items-start justify-center gap-[10px] px-[10px]">
         <div className="w-full max-w-[1000px] xl:max-w-full flex flex-col items-start justify-start">
        <Similar>
-        <TemplateTwo data={null} handleMovieInfo={function (): void {} } />
+        <TemplateTwo data={null} handleMovie={function (): void {} } />
       </Similar>
        <Recommendations>
-        <TemplateOne data={null} handleMovieInfo={function (): void {} } />
+        <TemplateOne data={null} handleMovie={function (): void {} } />
       </Recommendations>
        <NowPlaying>
-        <TemplateTwo data={null} handleMovieInfo={function (): void {} } />
+        <TemplateTwo data={null} handleMovie={function (): void {} } />
       </NowPlaying>
       {/* <Categories /> */}
       </div>
@@ -104,11 +105,12 @@ const MovieDetails = () => {
  export const SideLayout = () => {
   return (
     <div className="w-full max-w-[350px] xl:flex-row md:flex-wrap xl:max-w-full xl:items-center xl:justify-around h-auto overflow-hidden flex flex-col justify-start items-start sticky top-0 gap-[30px]">
+        <Genre/>
         <TrendingMovies>
-         <TemplateThree data={null} handleMovieInfo={function (): void {} } />
+         <TemplateThree data={null} handleMovie={function (): void {} } />
         </TrendingMovies>
         <TrendingTv>
-         <TemplateThree data={null} handleMovieInfo={function (): void {} } />
+         <TemplateThree data={null} handleMovie={function (): void {} } />
         </TrendingTv>
       </div>
   )

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useAxios from "../hooks/useAxios"
 import { API_KEY } from "../pages/Home"
 import { URL } from "../pages/Home"
@@ -18,6 +18,9 @@ export const Genre = () => {
     const {data: genre, isLoading, error} = useAxios<Genres>([
         `${URL}/genre/movie/list?&api_key=${API_KEY}&language=en-US&page=1`,
     ])
+    const {data: genreTv} = useAxios<Genres>([
+        `${URL}/genre/tv/list?&api_key=${API_KEY}&language=en-US&page=1`,
+    ])
     
     
     const handleGenres = (id: number) => {
@@ -26,6 +29,14 @@ export const Genre = () => {
         console.log(genreId);
     }
     
+    useEffect(() => {
+        console.log(genreTv);
+        if(genre && genreTv){
+        const newArr = [...genre, ...genreTv]
+        console.log(newArr);
+        }
+        
+    }, [genreTv])
     return (
         <div className="w-[80%] h-auto flex flex-col items-start justify-start gap-[10px]">
       <h2 className="text-white">Choose Genre:</h2>

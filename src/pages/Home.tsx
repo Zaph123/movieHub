@@ -114,6 +114,7 @@ export const SearchFilter = ({setError, setIsLoading}: SearchProps) => {
       site: string,
       name: string,
       key: string,
+      type: string,
       e: React.MouseEvent<HTMLAnchorElement>
   ) => {
     e.stopPropagation()
@@ -132,6 +133,7 @@ export const SearchFilter = ({setError, setIsLoading}: SearchProps) => {
       original_language: original_language,
       site: site,
       key: key,
+      type: type
     }  
     
     setMovieInfo([Data])
@@ -184,7 +186,8 @@ export const SearchFilter = ({setError, setIsLoading}: SearchProps) => {
             data.site,
             data.name,
             data.key,
-            e
+            data.type,
+            e,
            )}
           className="text-white flex items-center justify-start w-full min-h-[45px] rounded-[10px] hover:bg-[#1c1c1c] active:bg-[#1a1a1a] p-[10px] text-[.9rem]">
             <img src={IMG_URL + data?.poster_path} loading="lazy" alt={String(data?.id)} className="w-[50px] h-full object-cover"/>
