@@ -10,13 +10,13 @@ const Categories = () => {
       return (
       <>
       <Popular>
-        <TemplateOne data={null} handleMovie={function (): void {} } />
+        <TemplateOne data={null} handleMovieInfo={function (): void {} } />
       </Popular>
       <TopRated>
-        <TemplateTwo data={null} handleMovie={function (): void {} } />
+        <TemplateTwo data={null} handleMovieInfo={function (): void {} } />
       </TopRated>
       <Upcoming>
-        <TemplateTwo data={null} handleMovie={function (): void {} } />
+        <TemplateTwo data={null} handleMovieInfo={function (): void {} } />
       </Upcoming>
       {/* <Section data={trendingMovies?.results} heading="Trending Movies" />
       <Section data={trendingTvSeries?.results} heading="Trending TV Series" /> */}

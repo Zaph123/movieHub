@@ -56,8 +56,8 @@ const Search = () => {
           }
           
           else{
-            // const filterResults: Results[] | undefined = data[0]?.results?.filter(c => c?.title?.includes(movieName))
-            setMovieData(data[0]?.results)
+            const filterResults: Results[] | undefined = data[0]?.results?.filter(c => c.title !== movieName)
+            setMovieData(filterResults)
             setErrMsg("")
             setLoading(false)
           }
@@ -90,8 +90,7 @@ const Search = () => {
         original_language: string,
         site: string,
         name: string,
-        key: string,
-        type: string
+        key: string
     ) => {
 
       const Data = {
@@ -109,7 +108,6 @@ const Search = () => {
         original_language: original_language,
         site: site,
         key: key,
-        type: type
       }  
       
       setMovieInfo([Data])
@@ -166,8 +164,7 @@ const Search = () => {
             c.original_language,
             c.site,
             c.name,
-            c.key,
-            c.type,
+            c.key
            )}
           key={c.id} className="w-full relative group bg-[#0f0f0f] cursor-pointer max-w-[200px] min-h-[300px] flex flex-col items-center justify-center">
             <Link to={`/movie/${encodeURIComponent(c.title)}`}><motion.div className="w-full h-full absolute top-0 left-0">

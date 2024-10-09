@@ -54,7 +54,7 @@ const Casts = () => {
         return (
           <div className="flex h-full items-start w-full max-w-[250px] gap-[10px] justify-start">
             <div className="w-full max-w-[70px] h-[70px] rounded-full overflow-hidden">
-              {data.profile_path && <img src={IMG_URL + data.profile_path} alt="" className="w-full h-full object-cover"/>}
+              <img src={IMG_URL + data.profile_path} alt="" className="w-full h-full object-cover"/>
             </div>
             <div className="flex flex-col h-auto items-start justify-between">
               <p className="text-white text-[.9rem]">{data.original_name}</p>

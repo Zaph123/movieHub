@@ -32,14 +32,13 @@ export interface Results {
     release_date: string,
     original_language: string,
     site: string,
-    key: string,
-    type: string
+    key: string
 }
 
-export const useAxios = <T = unknown>(
+export function useAxios<T = unknown>(
   urls: string[],
   config?: AxiosRequestConfig
-): UseAxiosResponse<T> => {
+): UseAxiosResponse<T> {
   const [data, setData] = useState<ApiResponse<T>[] | null>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);

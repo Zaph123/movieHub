@@ -12,7 +12,7 @@ export interface Genres {
     name: string
 }
 
-export const Genre = () => {
+export const GenreLayout = () => {
     const {SETGENRE} = useMovie()
     const [genreId, setGenreId] = useState<number | null>(0)
     const {data: genre, isLoading, error} = useAxios<Genres>([

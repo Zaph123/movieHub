@@ -1,18 +1,25 @@
 import useAxios from "../hooks/useAxios";
 import { API_KEY } from "./Home"
 import { URL } from "./Home"
-import { Results } from "../hooks/useAxios";
+// import { Results } from "../hooks/useAxios";
 // import { useMovie } from "../filmsContext/MovieProvider";
 
 import { useEffect } from "react";
 
 
 interface ID {
-    id: number
+    id: number,
+  }
+  
+  interface VidPlayer {
+    type: string,
+    site: string,
+    name: string,
+    key: string
 }
 
 const VideoPlayer = ({id}: ID) => {
-    const {data} = useAxios<Results>([
+    const {data} = useAxios<VidPlayer>([
         `${URL}/movie/${id}/videos?&api_key=${API_KEY}&language=en-US&page=1`,
     ])
 

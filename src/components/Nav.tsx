@@ -2,7 +2,7 @@ import { CiSearch } from "react-icons/ci"
 import { FaTimes } from "react-icons/fa"
 import { CgMenuRight } from "react-icons/cg"
 import { ReactNode, useState } from "react"
-import { motion, AnimatePresence, useMotionValueEvent, useScroll, useTransform } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 
 const Logo = {
   up: {
@@ -14,46 +14,10 @@ const Logo = {
 }
 const Nav = () => {
   const [toggleMenu, setToggleMenu] = useState(false)
-  const [hidden, setHidden] = useState<boolean>(false)
   
-  const {scrollY} = useScroll()
-  useMotionValueEvent(scrollY, "change", 
-    latest => {
-        const previous = scrollY.getPrevious() ?? 0;
-        if(latest > previous && latest > 150){
-            setHidden(true)
-          }
-          else{
-            setHidden(false)
-          }
-          // console.log(latest);
-    })
-
-    const background = useTransform(scrollY, [0, 300], ["transparent", "#0f0f0f"])
-
-   const NavBehaviour = {
-    show: {
-      y: 0,
-      transition: {
-        duration: .5,
-        ease: "easeInOut"
-      }
-    },
-    hide: {
-      y: -100
-    }
-   }
-  
-   
   return (
-    <motion.nav 
-     className="w-full relative h-auto">
-      <motion.div 
-      variants={NavBehaviour}
-      initial="hide"
-      animate={hidden ? "hide" : "show"} 
-      style={{background}}
-      className="w-full z-50 fixed h-[70px] top-0 left-0 flex items-center justify-between py-[10px] px-5">
+    <nav className="w-full relative h-auto">
+      <div className="w-full z-50 fixed h-[70px] top-0 left-0 flex items-center justify-between py-[10px] px-5">
       <motion.div style={{opacity: toggleMenu ? "0" : "1"}} variants={Logo} initial={"down"} animate={toggleMenu ? "up" : "down"}>
         <a href="/movieHub/" className="text-[2rem] font-bold text-[#ffa32c]">movieHub</a>
       </motion.div >
@@ -69,9 +33,9 @@ const Nav = () => {
           : <motion.div key='two' initial={{scale: 0}} animate={{scale: 1}} exit={{scale: 0}}><CgMenuRight className=""/></motion.div>}
           </AnimatePresence>
         </div>
-      </motion.div>
+      </div>
       <SideMenu toggleMenu={toggleMenu}/>
-     </motion.nav>
+     </nav>
   )
 }
 

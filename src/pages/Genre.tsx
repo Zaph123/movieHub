@@ -12,7 +12,6 @@ import { TemplateOne} from "../components/DisplayTemplate"
 import { SideLayout } from "./MovieDetails"
 import { motion } from "framer-motion"
 import { GrConnect } from "react-icons/gr"
-import handleMovieInfo from "../hooks/handleMovieInfo"
 
 const Genre = () => {
     const [error, setError] = useState<string | null>('')
@@ -48,7 +47,7 @@ const Genre = () => {
             ? <p className="loader"></p>
             : <>
               <GenreTemplate genreData={movieData}>
-                <TemplateOne data={null} handleMovie={function (): void {} } />
+                <TemplateOne data={null} handleMovieInfo={function (): void {} } />
               </GenreTemplate>
               <SideLayout />
            </>
@@ -66,11 +65,60 @@ interface Children {
   genreData: ApiResponse<Results>[] | null
 }
  const GenreTemplate = ({children, genreData}: Children) => {
-   const handleMovie = handleMovieInfo()
+    const {setMovieInfo, movieInfo, setIsAuthorized} = useMovie()
+      
+    const handleMovieInfo = (
+        id: number,
+        original_title: string,
+        name: string,
+        overview: string,
+        media_type: string,
+        poster_path: string,
+        title: string,
+        vote_count: number,
+        vote_average: number,
+        adult: boolean,
+        release_date: string,
+        original_language: string,
+        site: string,
+        key: string,
+    ) => {
 
+      const Data = {
+        id: id,
+        original_title: original_title,
+        name: name,
+        overview: overview,
+        media_type: media_type,
+        poster_path: poster_path,
+        title: title,
+        vote_count: vote_count,
+        vote_average: vote_average,
+        adult: adult,
+        release_date: release_date,
+        original_language: original_language,
+        site: site,
+        key: key,
+      }  
+      
+      
+      setMovieInfo((prev) => {
+        if (prev) {
+          return [...prev, Data];
+        } else {
+          return [Data]; // If prev is null, initialize with the first Data element
+        }
+      })
+      setIsAuthorized(true)
+      document.getElementById("header")?.scrollIntoView({behavior: "smooth"})
+      // console.log(scroll);
+      console.log(movieInfo);
+    }
+   
+    
    const enhancedChildren = React.Children.map(children, (child) => {
       if (React.isValidElement(child)) {
-        return React.cloneElement(child as ReactElement, {data: genreData && genreData[0] , handleMovie });
+        return React.cloneElement(child as ReactElement, {data: genreData && genreData[0] , handleMovieInfo });
       }
       return child;
     })
