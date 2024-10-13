@@ -12,6 +12,7 @@ import { TemplateOne} from "../components/DisplayTemplate"
 import { SideLayout } from "./MovieDetails"
 import { motion } from "framer-motion"
 import { GrConnect } from "react-icons/gr"
+import { GenreLayout } from "../components/GenreLayout"
 
 const Genre = () => {
     const [error, setError] = useState<string | null>('')
@@ -38,6 +39,7 @@ const Genre = () => {
       <Nav />
       <div className="w-full min-h-screen flex flex-col items-center justify-start text-white pt-[150px] p-[10px]">
        <SearchFilter setError={setError} setIsLoading={setIsLoading}/>
+        <GenreLayout />
         <div className="w-full mt-[50px] p-[10px] min-h-[300px] flex flex-col items-start justify-start">
           <h1 className="text-[2.5rem]">{name}</h1>
         <div className="w-full flex relative items-start justify-evenly lg:flex-wrap">

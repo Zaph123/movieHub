@@ -27,7 +27,7 @@ export const GenreLayout = () => {
     }
     
     return (
-        <div className="w-[80%] h-auto flex flex-col items-start justify-start gap-[10px]">
+        <div className="w-[80%] mx-auto my-2 h-auto flex flex-col items-start justify-start gap-[10px]">
       <h2 className="text-white">Choose Genre:</h2>
       <div className="w-full h-auto flex flex-wrap items-center justify-center gap-[10px]">
       {/* {movieData[0]?.results[0]?.original_title} */}

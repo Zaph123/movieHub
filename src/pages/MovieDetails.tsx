@@ -12,7 +12,7 @@ import VideoPlayer from "./VideoPlayer"
 import { TemplateOne, TemplateTwo, TemplateThree } from "../components/DisplayTemplate"
 import Casts from "../components/Casts"
 import { TrendingMovies, TrendingTv } from "../components/Trending"
-
+import { GenreLayout } from "../components/GenreLayout"
 
 const MovieDetails = () => {
   // const navigate = useNavigate()
@@ -50,8 +50,8 @@ const MovieDetails = () => {
   return (
     <main className="w-full">
       <Nav />
-      <header id="header" className="w-full h-auto pt-[70px] flex-wrap flex items-center justify-evenly relative overflow-hidden">
-        <div className="absolute left-0 hidden z-20 md:block h-full w-full bg-gradient-to-r from-zinc-950 to-zinc-950/0"/> 
+      <header id="header" className="w-full pt-[70px] h-auto flex-wrap flex items-center justify-evenly relative overflow-hidden">
+        <div className="absolute top-0 left-0 hidden z-20 md:block h-full w-full bg-gradient-to-r from-zinc-950 to-zinc-950/0"/> 
          <div className="absolute hidden md:block z-20 h-[50%] w-full bg-gradient-to-b from-[#0f0f0f00] to-[#0f0f0f] bottom-0"/>
         <div className="w-full z-30 max-w-[800px] h-auto relative gap-[20px] flex flex-col items-start justify-end p-[30px] pb-[50px]">
           <h1 className="text-[4rem] sm:text-[2rem] font-bold w-full max-w-[900px] text-white">{currentMovie()[0]?.title || currentMovie()[0]?.name}</h1>
@@ -78,10 +78,10 @@ const MovieDetails = () => {
           </div>
           <Casts />
         </div>
-        <img className="w-full md:opacity-50 max-w-[400px] md:top-[70px] h-full md:absolute md:z-10 md:max-w-full top-0 left-0 object-cover" src={IMG_URL + currentMovie()[0]?.poster_path} alt={currentMovie()[0]?.poster_path} />
+        <img className="w-full md:opacity-50 max-w-[400px] h-full md:absolute md:z-10 md:max-w-full top-0 left-0 object-cover" src={IMG_URL + currentMovie()[0]?.poster_path} alt={currentMovie()[0]?.poster_path} />
       </header>
       <VideoPlayer id={currentMovie()[0]?.id}/>
-
+      <GenreLayout />
       <section className="w-full flex xl:flex-col relative items-start justify-center gap-[10px] px-[10px]">
         <div className="w-full max-w-[1000px] xl:max-w-full flex flex-col items-start justify-start">
        <Similar>

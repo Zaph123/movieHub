@@ -113,7 +113,7 @@ export interface Template {
 
 const DisplayTemplate = ({handleMovieInfo, c, width, id}: Template) => {
     return(
-      <a href={`/movieHub/movie/${encodeURIComponent(c?.title || c?.name)}`} className={`${width} ${id === 14 || id === 7  && "col-span-2" } rounded-[5px] overflow-hidden w-full sm:max-w-[150px] flex h-full flex-shrink-0 sm:min-h-[200px] ${id === 0 ? "row-span-2 col-span-3 md:row-span-1 md:col-span-1" : ''} min-h-[300px]`}>
+      <a href={`/movieHub/movie/${encodeURIComponent(c?.title || c?.name)}`} className={`${width} ${id === 14 || id === 8  && "col-span-2" } rounded-[5px] overflow-hidden w-full sm:max-w-[150px] flex h-full flex-shrink-0 sm:min-h-[200px] ${id === 0 ? "row-span-2 col-span-3 md:row-span-1 md:col-span-1" : ''} min-h-[300px]`}>
        <motion.div 
           initial={{opacity: 0, y: 50}}
           animate={{opacity: 1, y: 0}}

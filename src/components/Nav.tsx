@@ -17,7 +17,7 @@ const Nav = () => {
   
   return (
     <nav className="w-full relative h-auto">
-      <div className="w-full z-50 fixed h-[70px] top-0 left-0 flex items-center justify-between py-[10px] px-5">
+      <div className="w-full backdrop-blur-lg z-50 fixed h-[70px] top-0 left-0 flex items-center justify-between py-[10px] px-5">
       <motion.div style={{opacity: toggleMenu ? "0" : "1"}} variants={Logo} initial={"down"} animate={toggleMenu ? "up" : "down"}>
         <a href="/movieHub/" className="text-[2rem] font-bold text-[#ffa32c]">movieHub</a>
       </motion.div >
