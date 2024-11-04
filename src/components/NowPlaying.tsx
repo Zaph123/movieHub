@@ -18,7 +18,7 @@ const NowPlaying = ({children}: Children) => {
 const {setMovieInfo, movieInfo, setIsAuthorized} = useMovie()
       
      const handleMovieInfo = (
-        id: number,
+        id: number, 
         original_title: string,
         name: string,
         overview: string,

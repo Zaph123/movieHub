@@ -77,7 +77,7 @@ import { FaStar } from "react-icons/fa"
           className="w-full min-h-[300px] sm:min-h-[200px] p-[20px]">
         {data && data?.results?.map((c, i) => {
          return (
-          <SwiperSlide className="flex-shrink-0 h-auto rounded-[10px]">
+          <SwiperSlide key={c.id} className="flex-shrink-0 h-auto rounded-[10px]">
             <DisplayTemplate c={c} id={i} handleMovieInfo={handleMovieInfo} width='md:w-[92%]'/>
           </SwiperSlide>
         )
@@ -186,13 +186,14 @@ const DisplayTemplateTwo = ({handleMovieInfo, c, width, id}: Template) => {
            c.key,
           )}
          key={c?.id}
-        className={`${width} ${id} w-full overflow-auto flex-shrink-0 relative group cursor-pointer h-[100px] flex items-center justify-center`}>
+        className={`${width} ${id} w-full overflow-auto rounded-xl flex-shrink-0 relative group cursor-pointer h-[100px] flex items-center justify-center`}>
            <motion.div className="w-full max-w-[100px] h-full">
                <img src={IMG_URL + c?.poster_path} loading="lazy" alt={String(c?.id)} className="w-full h-full object-cover"/>
            </motion.div>
            {/* <div className="absolute w-full left-0 right-0 bottom-0 h-[200px] bg-gradient-to-b from-zinc-950/0 to-zinc-950"/> */}
            <div className="px-[10px] py-[5px] bg-[#181818] flex flex-col items-start justify-between w-full h-full overflow-hidden"> 
              <h1 className="text-white text-[1rem] w-full">{c?.title || c?.name}</h1>
+             <p className="text-white text-ellipsis h-5 overflow-hidden">{}</p>
              <p className="flex items-center text-[.9rem] text-white justify-start"><FaStar className="fill-[#e6e21c]"/>{c?.vote_average.toFixed(1)}</p>
            </div>
         </motion.div>

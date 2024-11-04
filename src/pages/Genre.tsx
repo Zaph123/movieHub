@@ -46,7 +46,7 @@ const Genre = () => {
         {error 
             ? <motion.p initial={{ scale: 0 }} animate={{scale: 1}} className="text-white text-center flex flex-col items-center justify-center"><GrConnect className="text-[3rem]"/>{error}</motion.p>
             : isLoading 
-            ? <p className="loader"></p>
+            ? <div className="loader"></div>
             : <>
               <GenreTemplate genreData={movieData}>
                 <TemplateOne data={null} handleMovieInfo={function (): void {} } />

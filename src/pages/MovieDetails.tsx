@@ -17,60 +17,68 @@ import { GenreLayout } from "../components/GenreLayout"
 const MovieDetails = () => {
   // const navigate = useNavigate()
   const [formattedDate, setFormattedDate] = useState("")
-  const {movieInfo} = useMovie()
+  const { movieInfo } = useMovie()
 
   // useEffect(() => {
   //   if(!isAuthorized){
   //      navigate('/', { replace: true })
   //   }
   // },[isAuthorized])
-    
-    if (!movieInfo) {
-      return <div>No movie information available.</div>;
-    }
 
-   const currentMovie = () => {
+  if (!movieInfo) {
+    return <div>No movie information available.</div>;
+  }
+
+  const currentMovie = () => {
     const curMovie = movieInfo.slice(movieInfo.length - 1)
     return curMovie
-   }
-    useEffect(() => {
-      const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        });
-      };
-      setFormattedDate(formatDate(currentMovie()[0]?.release_date))
-      
+  }
+  useEffect(() => {
+    const formatDate = (dateString: string) => {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+    };
+    setFormattedDate(formatDate(currentMovie()[0]?.release_date))
+
     console.log(currentMovie()[0]);
-  },[currentMovie()[0]?.release_date])
+  }, [currentMovie()[0]?.release_date])
 
   return (
     <main className="w-full">
       <Nav />
-      <header id="header" className="w-full pt-[70px] h-auto flex-wrap flex items-center justify-evenly relative overflow-hidden">
-        <div className="absolute top-0 left-0 hidden z-20 md:block h-full w-full bg-gradient-to-r from-zinc-950 to-zinc-950/0"/> 
-         <div className="absolute hidden md:block z-20 h-[50%] w-full bg-gradient-to-b from-[#0f0f0f00] to-[#0f0f0f] bottom-0"/>
-        <div className="w-full z-30 max-w-[800px] h-auto relative gap-[20px] flex flex-col items-start justify-end p-[30px] pb-[50px]">
+      <header id="header" className="w-full pt-[70px] p-[30px] h-auto flex-wrap flex items-center justify-evenly relative overflow-hidden">
+        <div className="absolute md:hidden top-[70px] w-[350px] h-2/3 left-0">
+          <img className="w-full h-full object-cover z-10" src={IMG_URL + currentMovie()[0]?.poster_path} alt={currentMovie()[0]?.poster_path} />
+          <div className="absolute top-0 right-0 z-20 h-full w-full bg-gradient-to-l from-gradient to-gradient/0" />
+          <div className="absolute top-0 right-0 z-20 h-full w-full bg-gradient-to-l from-gradient to-gradient/0" />
+          <div className="absolute top-0 bottom-0 z-20 h-full w-full bg-gradient-to-t from-gradient to-gradient/0" />
+          <div className="absolute top-0 bottom-0 z-20 h-full w-full bg-gradient-to-t from-gradient to-gradient/0" />
+          <div className="absolute top-0 left-0 z-20 h-full w-full bg-gradient-to-b from-gradient to-gradient/0" />
+        </div>
+        <div className="absolute top-0 left-0 hidden z-20 md:block h-full w-full bg-gradient-to-r from-zinc-950 to-zinc-950/0" />
+        <div className="absolute hidden md:block z-20 h-[50%] w-full bg-gradient-to-b from-[#0f0f0f00] to-[#0f0f0f] bottom-0" />
+        <div className="w-full z-30 max-w-[800px] h-auto relative gap-[20px] flex flex-col items-start justify-end pb-[50px] pt-[30px]">
           <h1 className="text-[4rem] sm:text-[2rem] font-bold w-full max-w-[900px] text-white">{currentMovie()[0]?.title || currentMovie()[0]?.name}</h1>
           <div className="flex items-center justify-center gap-[10px]">
-           {currentMovie()[0]?.release_date !== undefined && <span className="text-white text-[.85rem]">{formattedDate}</span>}
+            {currentMovie()[0]?.release_date !== undefined && <span className="text-white text-[.85rem]">{formattedDate}</span>}
             <span className="text-white text-[.9rem]"> {currentMovie()[0]?.media_type}</span>
           </div>
           <div className="flex w-auto items-center justify-center gap-[15px]">
-           {/* <div className="flex w-auto items-center justify-center gap-[5px]">
+            {/* <div className="flex w-auto items-center justify-center gap-[5px]">
             <FaStar className="fill-[#e6e21c] text-[1rem]"/>
             <FaStar className="fill-[#e6e21c] text-[1rem]"/>
             <FaStar className="fill-[#e6e21c] text-[1rem]"/>
             <FaStar className="fill-[#e6e21c] text-[1rem]"/>
             <FaStar className="fill-[#e6e21c] text-[1rem]"/>
           </div> */}
-          <div className=" text-white flex  text-[1rem] w-auto items-center justify-center">
-            <FaStar className="fill-[#e6e21c]"/>
-            <span>{currentMovie()[0]?.vote_average.toFixed(1)}</span>
-          </div>
+            <div className=" text-white flex  text-[1rem] w-auto items-center justify-center">
+              <FaStar className="fill-[#e6e21c]" />
+              <span>{currentMovie()[0]?.vote_average.toFixed(1)}</span>
+            </div>
           </div>
           <p className="text-[#dddddd] sm:text-[.9rem] w-full max-w-[700px]">{currentMovie()[0]?.overview}</p>
           <div className="h-[50px] w-auto flex mt-[50px]">
@@ -80,37 +88,37 @@ const MovieDetails = () => {
         </div>
         <img className="w-full md:opacity-50 max-w-[400px] h-full md:absolute md:z-10 md:max-w-full top-0 left-0 object-cover" src={IMG_URL + currentMovie()[0]?.poster_path} alt={currentMovie()[0]?.poster_path} />
       </header>
-      <VideoPlayer id={currentMovie()[0]?.id}/>
+      <VideoPlayer id={currentMovie()[0]?.id} />
       <GenreLayout />
       <section className="w-full flex xl:flex-col relative items-start justify-center gap-[10px] px-[10px]">
         <div className="w-full max-w-[1000px] xl:max-w-full flex flex-col items-start justify-start">
-       <Similar>
-        <TemplateTwo data={null} handleMovieInfo={function (): void {} } />
-      </Similar>
-       <Recommendations>
-        <TemplateOne data={null} handleMovieInfo={function (): void {} } />
-      </Recommendations>
-       <NowPlaying>
-        <TemplateTwo data={null} handleMovieInfo={function (): void {} } />
-      </NowPlaying>
-      {/* <Categories /> */}
-      </div>
-       <SideLayout />
+          <Similar>
+            <TemplateTwo data={null} handleMovieInfo={function (): void { }} />
+          </Similar>
+          <Recommendations>
+            <TemplateOne data={null} handleMovieInfo={function (): void { }} />
+          </Recommendations>
+          <NowPlaying>
+            <TemplateTwo data={null} handleMovieInfo={function (): void { }} />
+          </NowPlaying>
+          {/* <Categories /> */}
+        </div>
+        <SideLayout />
       </section>
     </main>
   )
 }
 
- export const SideLayout = () => {
+export const SideLayout = () => {
   return (
     <div className="w-full max-w-[350px] xl:flex-row md:flex-wrap xl:max-w-full xl:items-center xl:justify-around h-auto overflow-hidden flex flex-col justify-start items-start sticky top-0 gap-[30px]">
-        <TrendingMovies>
-         <TemplateThree data={null} handleMovieInfo={function (): void {} } />
-        </TrendingMovies>
-        <TrendingTv>
-         <TemplateThree data={null} handleMovieInfo={function (): void {} } />
-        </TrendingTv>
-      </div>
+      <TrendingMovies>
+        <TemplateThree data={null} handleMovieInfo={function (): void { }} />
+      </TrendingMovies>
+      <TrendingTv>
+        <TemplateThree data={null} handleMovieInfo={function (): void { }} />
+      </TrendingTv>
+    </div>
   )
 }
 export default MovieDetails

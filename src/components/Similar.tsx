@@ -3,7 +3,7 @@ import { useMovie } from "../filmsContext/MovieProvider";
 import { Results } from "../hooks/useAxios";
 import { URL } from "../pages/Home";
 import { API_KEY } from "../pages/Home";
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode, useEffect } from "react";
 
 interface Children {
   children: ReactNode;
@@ -12,10 +12,13 @@ interface Children {
 const Similar = ({children}: Children) => {
   const {setMovieInfo, movieInfo, setIsAuthorized} = useMovie()
   const { data } = useAxios<Results>([
-    `${URL}/movie/${movieInfo && movieInfo[0]?.id}/similar?&api_key=${API_KEY}&language=en-US&page=1`,
+    `${URL}/movie/${movieInfo && movieInfo[movieInfo.length - 1]?.id}/similar?&api_key=${API_KEY}&language=en-US&page=1`,
   ]);
 
-      
+      useEffect(() => {
+        console.log(movieInfo);
+        
+      }, [])
      const handleMovieInfo = (
         id: number,
         original_title: string,

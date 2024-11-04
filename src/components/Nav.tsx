@@ -21,7 +21,7 @@ const Nav = () => {
       <motion.div style={{opacity: toggleMenu ? "0" : "1"}} variants={Logo} initial={"down"} animate={toggleMenu ? "up" : "down"}>
         <a href="/movieHub/" className="text-[2rem] font-bold text-[#ffa32c]">movieHub</a>
       </motion.div >
-      <div className="flex items-center justify-center gap-2 md:hidden">
+      <div className="flex items-center justify-center gap-3 md:hidden">
          <a href="/movieHub/" className="text-[1rem] text-white">Home</a>
          <a href="/movieHub/" className="text-[1rem] text-white">Discover</a>
          {/* <a href="/movieHub/" className="text-[1rem] text-white">Movies</a> */}

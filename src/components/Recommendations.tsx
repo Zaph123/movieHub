@@ -12,7 +12,7 @@ interface Children {
 const Recommendations = ({children}: Children) => {
   const {setMovieInfo, movieInfo, setIsAuthorized} = useMovie()
   const { data } = useAxios<Results>([
-    `${URL}/movie/${movieInfo && movieInfo[0]?.id}/recommendations?&api_key=${API_KEY}&language=en-US&page=1`,
+    `${URL}/movie/${movieInfo && movieInfo[movieInfo.length - 1]?.id}/recommendations?&api_key=${API_KEY}&language=en-US&page=1`,
   ]);
 
       

@@ -13,6 +13,9 @@ export default {
        },
       fontFamily: {
         poppins: [ "Poppins", "Montserrat", 'serif']
+      },
+      colors: {
+        "gradient": "#0f0f0f"
       }
     },
   },

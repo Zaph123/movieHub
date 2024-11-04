@@ -48,11 +48,11 @@ const Casts = () => {
   },[data])
   return (
     <div className="flex mt-[20px] h-auto w-auto items-start flex-col justify-center gap-[10px]">
-      <h2 className="text-white">Casts:</h2>
+      <h2 className="text-white">Top Casts:</h2>
     <div className="flex h-full lg:flex-wrap w-auto items-start justify-start gap-[10px]">
       {cast && cast.map(data => {
         return (
-          <div className="flex h-full items-start w-full max-w-[250px] gap-[10px] justify-start">
+          <div key={data.id} className="flex h-full items-start w-full max-w-[250px] gap-[10px] justify-start">
             <div className="w-full max-w-[70px] h-[70px] rounded-full overflow-hidden">
               <img src={IMG_URL + data.profile_path} alt="" className="w-full h-full object-cover"/>
             </div>
