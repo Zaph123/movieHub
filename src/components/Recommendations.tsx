@@ -3,7 +3,8 @@ import { useMovie } from "../filmsContext/MovieProvider";
 import { Results } from "../hooks/useAxios";
 import { URL } from "../pages/Home";
 import { API_KEY } from "../pages/Home";
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode, useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 interface Children {
   children: ReactNode;
@@ -11,8 +12,27 @@ interface Children {
 
 const Recommendations = ({children}: Children) => {
   const {setMovieInfo, movieInfo, setIsAuthorized} = useMovie()
+  const { movieName } = useParams()
+  const [curMovie, setCurMovie] = useState<Results[]>([])
+
+  if (!movieInfo) {
+    return <div>No movie information available.</div>;
+  }
+  
+  useEffect(() => {
+    const getCurMovie = () => {
+        const curMovie = movieInfo.filter(c => c.title === movieName)
+        console.log(curMovie);
+        return curMovie
+    }
+    
+    setCurMovie(getCurMovie())
+    console.log(curMovie);
+    console.log(movieInfo);
+  },[movieName])
+
   const { data } = useAxios<Results>([
-    `${URL}/movie/${movieInfo && movieInfo[movieInfo.length - 1]?.id}/recommendations?&api_key=${API_KEY}&language=en-US&page=1`,
+    `${URL}/movie/${curMovie[0]?.id}/recommendations?&api_key=${API_KEY}&language=en-US&page=1`,
   ]);
 
       
@@ -59,7 +79,7 @@ const Recommendations = ({children}: Children) => {
         }
       })
       setIsAuthorized(true)
-      document.getElementById("header")?.scrollIntoView({behavior: "smooth"})
+      // document.getElementById("header")?.scrollIntoView({behavior: "smooth"})
       // console.log(scroll);
       console.log(movieInfo);
     }

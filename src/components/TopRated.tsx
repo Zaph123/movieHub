@@ -58,7 +58,7 @@ interface Children {
         }
       })
       setIsAuthorized(true)
-      document.getElementById("header")?.scrollIntoView({behavior: "smooth"})
+      // document.getElementById("header")?.scrollIntoView({behavior: "smooth"})
       // console.log(scroll);
       console.log(movieInfo);
     }

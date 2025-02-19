@@ -35,7 +35,7 @@ import { FaStar } from "react-icons/fa"
       <div className="w-full sm:p-0 sm:flex flex-wrap items-start justify-evenly min-h-[300px] p-[10px] gap-[10px] grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))]">
         {data && data?.results?.map((c, i) => {
         return (
-         <DisplayTemplate c={c} id={i} handleMovieInfo={handleMovieInfo} width=''/>
+         <DisplayTemplate key={i} c={c} id={i} handleMovieInfo={handleMovieInfo} width=''/>
         )
          }) 
               
@@ -96,7 +96,7 @@ export const TemplateThree = ({data, handleMovieInfo}: Template1) => {
     <div className="w-full h-auto flex flex-col gap-[10px]">
        {slicedData()?.map((c, i) => {
         return (
-         <DisplayTemplateTwo c={c} id={i} handleMovieInfo={handleMovieInfo} width=''/>
+         <DisplayTemplateTwo key={i} c={c} id={i} handleMovieInfo={handleMovieInfo} width=''/>
         )
          })        
      }
